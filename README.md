@@ -18,7 +18,6 @@ This plugs in exactly where your app converts string content into text-frame con
 
 See:
 - API contract: `docs/API.md`
-- Release/publish steps: `PUBLISHING.md`
 
 ## Implemented in this baseline
 
