@@ -1,0 +1,23 @@
+{
+  "presentation": {
+    "width": "13.333in",
+    "height": "7.5in"
+  },
+  "slides": [
+    {
+      "layout": "blank",
+      "elements": [
+        {
+          "type": "textbox",
+          "position": {
+            "left": "1in",
+            "top": "1in",
+            "width": "10in",
+            "height": "3in"
+          },
+          "content": "<p>Hello <b>bold</b>, <i>italic</i>, and <u>underline</u>.</p><p>Line 1<br/>Line 2</p>"
+        }
+      ]
+    }
+  ]
+}

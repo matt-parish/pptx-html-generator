@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pptx-html-generator"
+version = "0.1.0"
+description = "Generate PowerPoint files from JSON with progressive HTML support."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "PPTX HTML Generator Contributors" }]
+keywords = ["pptx", "powerpoint", "html", "python-pptx", "automation"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Office/Business :: Office Suites",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+  "python-pptx>=1.0.0",
+  "beautifulsoup4>=4.12",
+  "lxml>=4.9",
+]
+
+[project.urls]
+Homepage = "https://github.com/matt-parish/pptx-html-generator"
+Repository = "https://github.com/matt-parish/pptx-html-generator"
+Issues = "https://github.com/matt-parish/pptx-html-generator/issues"
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+release = ["build>=1.2.2", "twine>=5.1.1"]
+
+[project.scripts]
+pptx-html-generator = "pptx_html_generator.cli:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
