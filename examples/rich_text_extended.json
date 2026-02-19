@@ -15,7 +15,7 @@
             "width": "11in",
             "height": "4in"
           },
-          "content": "<p>Tier2: <span style=\"color:#008000; font-size:24pt; font-family:Arial\">green text</span>, <a href=\"https://example.com\">link</a>, <code>code</code>, <s>strike</s>, x<sup>2</sup>, H<sub>2</sub>O.</p><p>Line A<br/>Line B</p>"
+          "content": "<p>Extended: <span style=\"color:#008000; font-size:24pt; font-family:Arial\">green text</span>, <a href=\"https://example.com\">link</a>, <code>code</code>, <s>strike</s>, x<sup>2</sup>, H<sub>2</sub>O.</p><p>Line A<br/>Line B</p>"
         }
       ]
     }

@@ -2,8 +2,6 @@
 
 Python library for rendering rich HTML text into `python-pptx` text frames.
 
-Current status: Tier 1-3 HTML support implemented.
-
 ## Primary API
 
 Most users should use this directly in their existing `python-pptx` pipeline:
@@ -19,15 +17,15 @@ This plugs in exactly where your app converts string content into text-frame con
 See:
 - API contract: `docs/API.md`
 
-## Implemented in this baseline
+## Features
 
 - JSON schema validation with useful error messages
 - Unit parsing for `in`, `cm`, `pt`, `emu`
 - Presentation generation with text box elements
-- HTML-to-rich-text support:
-  - Tier 1: `<b>`, `<strong>`, `<i>`, `<em>`, `<u>`, `<br>`, `<p>`
-  - Tier 2: `<s>`, `<del>`, `<strike>`, `<code>`, `<a>`, `<span style>`, `<sup>`, `<sub>`
-  - Tier 3: `<ul>`, `<ol>`, `<li>`, `<h1>`-`<h6>`
+- HTML rich-text support:
+  - Inline formatting: `<b>`, `<strong>`, `<i>`, `<em>`, `<u>`, `<s>`, `<del>`, `<strike>`, `<code>`, `<sup>`, `<sub>`
+  - Links and styled spans: `<a>`, `<span style>`
+  - Block structure: `<p>`, `<br>`, `<ul>`, `<ol>`, `<li>`, `<h1>`-`<h6>`
 - JSON style/default support:
   - `font_name`, `font_size`, `font_color`
   - `alignment`, `vertical_anchor`, `word_wrap`
@@ -69,7 +67,7 @@ pytest
 
 ## CLI
 
-Generate PPTX (legacy form still supported):
+Generate PPTX:
 
 ```bash
 pptx-html-generator generate examples/full_implementation.json output/full_implementation_demo.pptx
@@ -107,7 +105,7 @@ pptx-html-generator extract-html output/full_implementation_demo.pptx --slide 1 
             "width": "8in",
             "height": "2in"
           },
-          "content": "Plain text only for Phase 1"
+          "content": "Plain text content"
         }
       ]
     }

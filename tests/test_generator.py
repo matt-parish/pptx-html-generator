@@ -36,7 +36,7 @@ def test_generate_pptx_plain_text(tmp_path: Path):
     assert prs.slides[0].shapes[0].text == "Revenue grew 12%"
 
 
-def test_generate_pptx_rich_text_tier2(tmp_path: Path):
+def test_generate_pptx_rich_text_extended(tmp_path: Path):
     spec = {
         "presentation": {"width": "10in", "height": "7.5in"},
         "slides": [

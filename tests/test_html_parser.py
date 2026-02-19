@@ -99,7 +99,7 @@ def test_hyperlink_code_strike_and_baseline():
     assert 'baseline="-25000"' in sub_run.font._element.xml
 
 
-def test_tier3_lists_and_headings():
+def test_lists_and_headings():
     text_frame = _text_frame()
     render_html_to_text_frame(
         text_frame,
