@@ -116,3 +116,44 @@ def test_lists_and_headings():
     assert text_frame.paragraphs[3].level == 1
     assert text_frame.paragraphs[4].text.startswith("1. First")
     assert text_frame.paragraphs[5].text.startswith("2. Second")
+
+
+def test_nested_inline_styles_with_css_override():
+    text_frame = _text_frame()
+    render_html_to_text_frame(
+        text_frame,
+        '<b>Bold <i>Both <span style="font-style:normal">BoldOnly</span></i> End</b>',
+    )
+    runs = text_frame.paragraphs[0].runs
+
+    assert [run.text for run in runs] == ["Bold ", "Both ", "BoldOnly", " End"]
+    assert runs[0].font.bold is True
+    assert runs[1].font.bold is True and runs[1].font.italic is True
+    assert runs[2].font.bold is True and runs[2].font.italic is False
+    assert runs[3].font.bold is True and runs[3].font.italic is None
+
+
+def test_malformed_overlapping_tags_gracefully_degrade():
+    text_frame = _text_frame()
+    render_html_to_text_frame(text_frame, "<p><b>bold <i>mix</b> tail</i> done</p>")
+    runs = text_frame.paragraphs[0].runs
+
+    assert text_frame.paragraphs[0].text == "bold mix tail done"
+    assert runs[0].text == "bold " and runs[0].font.bold is True
+    assert runs[1].text == "mix" and runs[1].font.bold is True and runs[1].font.italic is True
+    assert runs[2].text == " tail done"
+
+
+def test_deeply_nested_mixed_lists_keep_numbering_and_levels():
+    text_frame = _text_frame()
+    render_html_to_text_frame(
+        text_frame,
+        "<ol><li>A<ul><li><b>B</b><ol><li>C</li></ol></li></ul></li><li>D</li></ol>",
+    )
+
+    assert text_frame.paragraphs[0].text.startswith("1. A")
+    assert text_frame.paragraphs[1].text.startswith("\u2013 B")
+    assert text_frame.paragraphs[1].runs[1].font.bold is True
+    assert text_frame.paragraphs[2].text.startswith("1. C")
+    assert text_frame.paragraphs[2].level == 2
+    assert text_frame.paragraphs[3].text.startswith("2. D")
