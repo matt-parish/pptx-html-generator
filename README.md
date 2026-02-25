@@ -4,15 +4,16 @@ Python library for rendering rich HTML text into `python-pptx` text frames.
 
 ## Primary API
 
-Most users should use this directly in their existing `python-pptx` pipeline:
+Recommended: use `TextFrame.html`.
 
 ```python
-from pptx_html_generator import render_html_to_text_frame
+import pptx_html_generator  # installs TextFrame.html extension
 
-render_html_to_text_frame(shape.text_frame, html_string, base_styles={...})
+shape.text_frame.html = "<p><b>Hello</b> world</p>"  # render HTML -> PPTX text frame
+html = shape.text_frame.html                         # extract PPTX text frame -> HTML
 ```
 
-This plugs in exactly where your app converts string content into text-frame content.
+Alternative (explicit function call): `render_html_to_text_frame(...)`.
 
 See:
 - API contract: `docs/API.md`
@@ -30,6 +31,7 @@ See:
   - `font_name`, `font_size`, `font_color`
   - `alignment`, `vertical_anchor`, `word_wrap`
 - CLI: `json_in -> pptx_out`
+- Optional `TextFrame.html` extension for ergonomic get/set HTML on text frames
 
 ## Quick start
 
@@ -37,25 +39,53 @@ See:
 python -m pip install pptx-html-generator
 ```
 
-Drop-in usage in an existing `python-pptx` workflow:
+Quick start: set HTML (`TextFrame.html`)
 
 ```python
 from pptx import Presentation
-from pptx_html_generator import render_html_to_text_frame
+import pptx_html_generator  # installs TextFrame.html extension
 
 prs = Presentation()
 slide = prs.slides.add_slide(prs.slide_layouts[6])  # blank
 shape = slide.shapes.add_textbox(914400, 914400, 7315200, 1828800)
 html = "<p><strong>Hello</strong> <em>world</em> with <a href='https://example.com'>a link</a>.</p>"
 
-render_html_to_text_frame(shape.text_frame, html)
+shape.text_frame.html = html
 prs.save("example.pptx")
+```
+
+Quick start: get HTML (`TextFrame.html`)
+
+```python
+from pptx import Presentation
+import pptx_html_generator  # installs TextFrame.html extension
+
+prs = Presentation("example.pptx")
+slide = prs.slides[0]
+shape = slide.shapes[0]
+
+html = shape.text_frame.html
+print(html)
 ```
 
 Forward generation CLI (optional helper for JSON-driven generation):
 
 ```bash
 pptx-html-generator generate examples/full_implementation.json output/full_implementation_demo.pptx
+```
+
+Alternative usage (`render_html_to_text_frame`):
+
+```python
+from pptx import Presentation
+from pptx_html_generator import render_html_to_text_frame
+
+prs = Presentation()
+slide = prs.slides.add_slide(prs.slide_layouts[6])
+shape = slide.shapes.add_textbox(914400, 914400, 7315200, 1828800)
+html = "<p><strong>Hello</strong> <em>world</em></p>"
+
+render_html_to_text_frame(shape.text_frame, html)
 ```
 
 Development setup:

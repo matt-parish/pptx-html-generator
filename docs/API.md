@@ -18,6 +18,8 @@ from pptx_html_generator.api import (
     render_html_to_text_frame,
     list_slide_elements,
     extract_shape_html,
+    install_html_extension,
+    uninstall_html_extension,
 )
 ```
 
@@ -29,6 +31,8 @@ from pptx_html_generator import (
     render_html_to_text_frame,
     list_slide_elements,
     extract_shape_html,
+    install_html_extension,
+    uninstall_html_extension,
 )
 ```
 
@@ -73,6 +77,19 @@ Return selectable shape metadata for a slide:
 Extract HTML from a text-bearing shape selected by:
 - `shape_name` (recommended; matches Selection Pane), or
 - `shape_id`
+
+## Extension API
+
+### `install_html_extension() -> None`
+
+Install `TextFrame.html` monkey-patch on `python-pptx` text frames.
+
+### `uninstall_html_extension() -> None`
+
+Remove `TextFrame.html` monkey-patch (primarily for test isolation).
+
+When the package is imported from `pptx_html_generator`, the extension is
+installed automatically.
 
 ## Non-goals for v1 stability
 
